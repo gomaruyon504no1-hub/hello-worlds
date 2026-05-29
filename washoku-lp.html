@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旬炉 SHUNRO | 和食ダイニング</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #f8f4ee;
+    --warm-white: #fdfaf5;
+    --charcoal: #2a2520;
+    --charcoal-mid: #4a4540;
+    --accent: #8b3a2a;
+    --accent-light: #c4705e;
+    --gold: #b8956a;
+    --border: rgba(42,37,32,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(253,250,245,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    display: flex; flex-direction: column;
+  }
+  .logo-jp {
+    font-size: 1.1rem; font-weight: 500;
+    letter-spacing: 0.3em; color: var(--charcoal);
+  }
+  .logo-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.65rem; letter-spacing: 0.4em;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--charcoal-mid); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-reserve {
+    padding: 0.6rem 1.5rem;
+    background: var(--accent); color: white;
+    text-decoration: none; font-size: 0.7rem;
+    letter-spacing: 0.2em; transition: opacity 0.3s;
+  }
+  .nav-reserve:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; padding-top: 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 4rem 4rem 4rem 6rem;
+    background: var(--warm-white);
+  }
+  .hero-tag {
+    font-size: 0.65rem; letter-spacing: 0.5em;
+    color: var(--gold); margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300; line-height: 1.2;
+    color: var(--charcoal); margin-bottom: 2rem;
+  }
+  .hero h1 .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; color: var(--accent-light);
+    display: block; font-size: 0.7em;
+  }
+  .hero-desc {
+    font-size: 0.85rem; line-height: 2.2;
+    color: var(--charcoal-mid); margin-bottom: 3rem;
+    max-width: 28rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; }
+  .btn-primary {
+    padding: 1rem 2.5rem;
+    background: var(--accent); color: white;
+    text-decoration: none; font-size: 0.75rem;
+    letter-spacing: 0.2em; transition: opacity 0.3s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { background: var(--charcoal); color: white; }
+  .hero-right {
+    background: var(--ivory);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content: '旬';
+    font-size: 20rem; font-weight: 300;
+    color: rgba(42,37,32,0.05);
+    position: absolute;
+  }
+  .hero-right-inner {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .season-badge {
+    width: 180px; height: 180px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.3rem;
+  }
+  .season-badge span:first-child {
+    font-size: 0.6rem; letter-spacing: 0.4em; color: var(--gold);
+  }
+  .season-badge span:last-child {
+    font-size: 1.8rem; font-weight: 300;
+  }
+
+  /* SECTION */
+  section.content { padding: 8rem 6rem; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300;
+  }
+  .section-header .en-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem; letter-spacing: 0.4em;
+    color: var(--gold);
+  }
+
+  /* CONCEPT */
+  .concept-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0; border: 1px solid var(--border);
+  }
+  .concept-item {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .concept-item:last-child { border-right: none; }
+  .concept-item:hover { background: var(--ivory); }
+  .concept-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; color: var(--accent); opacity: 0.3;
+    margin-bottom: 1rem;
+  }
+  .concept-item h3 {
+    font-size: 1.1rem; font-weight: 400;
+    margin-bottom: 1rem; letter-spacing: 0.1em;
+  }
+  .concept-item p { font-size: 0.8rem; line-height: 2; color: var(--charcoal-mid); }
+
+  /* COURSE */
+  .course-section { background: var(--ivory); }
+  .course-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+  }
+  .course-card {
+    background: white; padding: 3rem;
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+  .course-card .course-season {
+    font-size: 0.65rem; letter-spacing: 0.4em;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .course-card h3 {
+    font-size: 1.3rem; font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .course-card p { font-size: 0.8rem; line-height: 2; color: var(--charcoal-mid); margin-bottom: 2rem; }
+  .course-price {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--border); padding-top: 1.5rem;
+  }
+  .course-price .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--accent);
+  }
+  .course-price .tax { font-size: 0.65rem; color: var(--charcoal-mid); }
+
+  /* ACCESS */
+  .access-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .access-info h2 {
+    font-size: 2rem; font-weight: 300; margin-bottom: 3rem;
+  }
+  .info-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .info-item { display: flex; gap: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+  .info-label { font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold); min-width: 4rem; padding-top: 0.2rem; }
+  .info-value { font-size: 0.85rem; line-height: 1.8; }
+  .map-placeholder {
+    aspect-ratio: 1; background: var(--ivory);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; letter-spacing: 0.2em; color: var(--charcoal-mid);
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--charcoal); color: white;
+    text-align: center; padding: 8rem 4rem;
+  }
+  .cta-section h2 {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    margin-bottom: 1rem; letter-spacing: 0.1em;
+  }
+  .cta-section p { opacity: 0.6; font-size: 0.85rem; margin-bottom: 3rem; }
+  .btn-white {
+    display: inline-block; padding: 1.2rem 4rem;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white; text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.3em;
+    transition: all 0.3s;
+  }
+  .btn-white:hover { background: white; color: var(--charcoal); }
+
+  footer {
+    padding: 2.5rem 6rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.7rem; color: var(--charcoal-mid);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.8s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links, .nav-reserve { display: none; }
+    .hero { grid-template-columns: 1fr; height: auto; }
+    .hero-left { padding: 5rem 2rem 3rem; }
+    .hero-right { height: 40vh; }
+    section.content { padding: 5rem 2rem; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .concept-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .course-grid { grid-template-columns: 1fr; }
+    .access-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-jp">旬 炉</span>
+    <span class="logo-en">SHUNRO</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#concept">こだわり</a></li>
+    <li><a href="#course">コース</a></li>
+    <li><a href="#access">アクセス</a></li>
+  </ul>
+  <a href="#reserve" class="nav-reserve">ご予約</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">JAPANESE DINING — TOKYO</p>
+    <h1>旬を、<br>炉端で。<br><span class="en">Season & Fire</span></h1>
+    <p class="hero-desc">産地直送の旬の食材を、炭火と職人の技で丁寧に仕上げる。四季の移ろいを、一皿一皿に込めた和食ダイニング。</p>
+    <div class="hero-btns">
+      <a href="#reserve" class="btn-primary">ご予約はこちら</a>
+      <a href="#course" class="btn-outline">コースを見る</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="season-badge">
+        <span>SPRING MENU</span>
+        <span>春献立</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content" id="concept">
+  <div class="section-header">
+    <h2>三つのこだわり</h2>
+    <span class="en-label">OUR PHILOSOPHY</span>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-item">
+      <div class="concept-num">一</div>
+      <h3>産地直送の旬素材</h3>
+      <p>全国の信頼する農家・漁師から直接仕入れた、その日最も旬の食材のみを使用します。</p>
+    </div>
+    <div class="concept-item">
+      <div class="concept-num">二</div>
+      <h3>炭火と職人の技</h3>
+      <p>備長炭の遠赤外線で素材本来の旨みを最大限に引き出す、炉端ならではの焼き方。</p>
+    </div>
+    <div class="concept-item">
+      <div class="concept-num">三</div>
+      <h3>四季を映す空間</h3>
+      <p>季節ごとに変わる花材と器使いで、視覚からも日本の四季を五感で楽しんでいただきます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="content course-section" id="course">
+  <div class="section-header">
+    <h2>おまかせコース</h2>
+    <span class="en-label">OMAKASE COURSE</span>
+  </div>
+  <div class="course-grid">
+    <div class="course-card">
+      <p class="course-season">STANDARD</p>
+      <h3>旬炉コース</h3>
+      <p>旬の食材を炭火で仕上げた全8品のスタンダードコース。季節の先付・椀・造り・焼物・煮物・食事・水物をご用意します。</p>
+      <div class="course-price">
+        <span class="price">¥8,800</span>
+        <span class="tax">税込・サービス料別</span>
+      </div>
+    </div>
+    <div class="course-card">
+      <p class="course-season">PREMIUM</p>
+      <h3>季節のおまかせコース</h3>
+      <p>その日市場から届いた最高の食材で組み立てる、全12品のプレミアムコース。ペアリングドリンクもご用意可能です。</p>
+      <div class="course-price">
+        <span class="price">¥16,500</span>
+        <span class="tax">税込・サービス料別</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="access">
+  <div class="access-wrap">
+    <div class="access-info">
+      <h2>アクセス</h2>
+      <div class="info-list">
+        <div class="info-item">
+          <span class="info-label">住所</span>
+          <span class="info-value">東京都港区南青山X-XX-XX<br>〇〇ビルB1F</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">営業時間</span>
+          <span class="info-value">ディナー 17:30〜23:00（L.O. 21:30）</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">定休日</span>
+          <span class="info-value">日曜日・祝日</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">TEL</span>
+          <span class="info-value">03-XXXX-XXXX</span>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder">MAP</div>
+  </div>
+</section>
+
+<section class="cta-section" id="reserve">
+  <h2>ご予約・お問い合わせ</h2>
+  <p>特別な日のお食事に、旬炉をご利用ください。</p>
+  <a href="#" class="btn-white">WEB予約はこちら</a>
+</section>
+
+<footer>
+  <span>旬炉 SHUNRO</span>
+  <span>© 2024 SHUNRO. All Rights Reserved.</span>
+</footer>
+
+</body>
+</html>

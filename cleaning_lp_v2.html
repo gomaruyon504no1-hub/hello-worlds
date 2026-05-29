@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>◯◯清掃 | 賃貸・テナントのお掃除専門店</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333;
+  background: #fff;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2a7a4f;
+  letter-spacing: 0.04em;
+}
+.logo span { color: #555; font-weight: 400; font-size: 0.78rem; display: block; letter-spacing: 0.06em; }
+nav { display: flex; gap: 28px; }
+nav a {
+  font-size: 0.82rem;
+  color: #666;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+nav a:hover { color: #2a7a4f; }
+.header-tel {
+  font-size: 0.82rem;
+  color: #2a7a4f;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ── HERO ── */
+#hero {
+  padding-top: 70px;
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+.hero-left {
+  padding: 60px 6% 60px 10%;
+}
+.hero-badge {
+  display: inline-block;
+  background: #e8f5ee;
+  color: #2a7a4f;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  letter-spacing: 0.06em;
+}
+.hero-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+.hero-title em {
+  font-style: normal;
+  color: #2a7a4f;
+}
+.hero-sub {
+  font-size: 0.92rem;
+  color: #666;
+  line-height: 2;
+  margin-bottom: 36px;
+  max-width: 440px;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2a7a4f;
+  color: #fff;
+  padding: 15px 32px;
+  border-radius: 50px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(42,122,79,0.28);
+}
+.hero-cta:hover {
+  background: #236640;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(42,122,79,0.35);
+}
+.hero-cta-note {
+  margin-top: 12px;
+  font-size: 0.76rem;
+  color: #aaa;
+}
+.hero-right {
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(255,255,255,0.15), transparent);
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: #2a7a4f;
+  padding: 18px 10%;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.trust-item::before {
+  content: '✓';
+  background: rgba(255,255,255,0.25);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+/* ── COMMON ── */
+section { padding: 88px 10%; }
+.sec-label {
+  display: inline-block;
+  background: #e8f5ee;
+  color: #2a7a4f;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  letter-spacing: 0.1em;
+}
+.sec-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.sec-lead {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 2;
+  max-width: 560px;
+}
+.text-center { text-align: center; }
+.text-center .sec-lead { margin: 0 auto; }
+
+/* ── GREETING ── */
+#greeting {
+  background: #f9fbf9;
+}
+.greeting-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: center;
+  margin-top: 48px;
+}
+.greeting-img {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.greeting-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.greeting-body {}
+.greeting-text {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 2.1;
+  margin-bottom: 20px;
+}
+.greeting-text strong { color: #2a7a4f; font-weight: 700; }
+.greeting-name {
+  font-size: 0.82rem;
+  color: #999;
+  margin-top: 24px;
+}
+.greeting-name strong {
+  display: block;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* ── SERVICE ── */
+#service { background: #fff; }
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.service-card {
+  background: #fff;
+  border: 1.5px solid #e8ede8;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.28s;
+}
+.service-card:hover {
+  border-color: #2a7a4f;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(42,122,79,0.12);
+}
+.service-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.service-body {
+  padding: 22px 22px 24px;
+}
+.service-tag {
+  font-size: 0.72rem;
+  color: #2a7a4f;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.service-name {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+.service-desc {
+  font-size: 0.82rem;
+  color: #777;
+  line-height: 1.85;
+}
+
+/* ── WHY ── */
+#why { background: #f9fbf9; }
+.why-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 48px;
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.why-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 32px 0;
+  border-bottom: 1px solid #eee;
+}
+.why-item:first-child { border-top: 1px solid #eee; }
+.why-num {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d4eadb;
+  line-height: 1;
+  padding-top: 4px;
+  min-width: 48px;
+}
+.why-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+.why-desc {
+  font-size: 0.86rem;
+  color: #666;
+  line-height: 1.95;
+}
+
+/* ── VOICE ── */
+#voice { background: #fff; }
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.voice-card {
+  background: #f9fbf9;
+  border-radius: 12px;
+  padding: 28px 26px;
+  position: relative;
+}
+.voice-card::before {
+  content: '"';
+  font-family: Georgia, serif;
+  font-size: 4rem;
+  color: #c8e6cf;
+  position: absolute;
+  top: 12px; left: 20px;
+  line-height: 1;
+}
+.voice-text {
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 2;
+  margin-bottom: 18px;
+  padding-top: 24px;
+}
+.voice-who {
+  font-size: 0.78rem;
+  color: #999;
+  font-weight: 500;
+}
+.voice-who strong {
+  color: #555;
+  display: block;
+  font-size: 0.85rem;
+}
+.voice-stars {
+  color: #f4c542;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+/* ── FLOW ── */
+#flow {
+  background: #2a7a4f;
+}
+#flow .sec-label { background: rgba(255,255,255,0.2); color: #fff; }
+#flow .sec-title { color: #fff; }
+#flow .sec-lead { color: rgba(255,255,255,0.75); }
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 48px;
+  position: relative;
+}
+.flow-steps::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+.flow-step {
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+.flow-circle {
+  width: 72px;
+  height: 72px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+.flow-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.flow-desc {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+}
+
+/* ── ABOUT ── */
+#about { background: #f9fbf9; }
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  margin-top: 48px;
+  align-items: start;
+}
+.about-img {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.about-img img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+.about-table tr { border-bottom: 1px solid #e8ede8; }
+.about-table td {
+  padding: 14px 0;
+  vertical-align: top;
+  line-height: 1.8;
+}
+.about-table td:first-child {
+  color: #999;
+  font-size: 0.78rem;
+  width: 100px;
+  font-weight: 500;
+  padding-right: 20px;
+  white-space: nowrap;
+  padding-top: 16px;
+}
+
+/* ── CTA ── */
+#cta {
+  background: #fff;
+  text-align: center;
+  padding: 100px 10%;
+}
+.cta-box {
+  background: linear-gradient(135deg, #e8f5ee 0%, #f0f8f3 100%);
+  border-radius: 20px;
+  padding: 64px 48px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.cta-box .sec-title { margin-bottom: 12px; }
+.cta-sub {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 2;
+  margin-bottom: 36px;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2a7a4f;
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.25s;
+  box-shadow: 0 4px 20px rgba(42,122,79,0.3);
+}
+.cta-btn:hover {
+  background: #236640;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(42,122,79,0.38);
+}
+.cta-note { margin-top: 16px; font-size: 0.76rem; color: #bbb; }
+
+/* ── FOOTER ── */
+footer {
+  background: #1a1a1a;
+  padding: 36px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  header { padding: 14px 20px; }
+  nav, .header-tel { display: none; }
+  #hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { height: 52vw; }
+  .hero-left { padding: 40px 6%; }
+  section { padding: 64px 6%; }
+  .greeting-wrap, .about-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .flow-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .flow-steps::before { display: none; }
+  .trust-bar { gap: 20px; padding: 16px 6%; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    ◯◯清掃
+    <span>賃貸・テナント専門のお掃除屋さん</span>
+  </div>
+  <nav>
+    <a href="#service">サービス</a>
+    <a href="#why">選ばれる理由</a>
+    <a href="#voice">お客様の声</a>
+    <a href="#about">会社概要</a>
+  </nav>
+  <div class="header-tel">📞 ◯◯◯-◯◯◯◯-◯◯◯◯</div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">◯◯エリア密着 ／ 創業◯◯年</div>
+    <h1 class="hero-title">
+      退去後も、入居前も。<br>
+      <em>ピカピカにします、</em><br>
+      お任せください。
+    </h1>
+    <p class="hero-sub">
+      賃貸・テナントの清掃なら◯◯清掃にお任せください。<br>
+      管理会社さまから個人オーナーさままで、<br>
+      地域に根ざして丁寧な仕事をしています。
+    </p>
+    <a href="#cta" class="hero-cta">無料でお見積もりする →</a>
+    <p class="hero-cta-note">お電話・メールどちらでも対応しています</p>
+  </div>
+  <div class="hero-right">
+    <img
+      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop"
+      alt="清掃スタッフが丁寧に作業している様子"
+      loading="lazy"
+    >
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">見積もり・相談 無料</div>
+  <div class="trust-item">土日祝も対応</div>
+  <div class="trust-item">創業◯◯年の実績</div>
+  <div class="trust-item">個人オーナー様も歓迎</div>
+</div>
+
+<!-- GREETING -->
+<section id="greeting">
+  <div class="greeting-wrap">
+    <div class="greeting-img reveal">
+      <img
+        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&auto=format&fit=crop"
+        alt="スタッフの写真"
+        loading="lazy"
+      >
+    </div>
+    <div class="greeting-body reveal">
+      <p class="sec-label">ごあいさつ</p>
+      <h2 class="sec-title">「また頼みたい」と<br>言ってもらえる仕事を。</h2>
+      <p class="greeting-text">
+        はじめまして、◯◯清掃の◯◯です。<br><br>
+        私たちは◯◯エリアを中心に、賃貸物件やテナントの清掃を専門にしています。
+        大手ではありませんが、<strong>その分スタッフひとりひとりが責任を持って丁寧に対応する</strong>のが私たちのスタイルです。<br><br>
+        「見えないところまでちゃんとやってくれた」「次もぜひお願いしたい」そう言っていただけるような仕事を、これからも続けていきたいと思っています。
+      </p>
+      <p class="greeting-name">
+        代表
+        <strong>◯◯ ◯◯</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section id="service">
+  <p class="sec-label reveal">サービス内容</p>
+  <h2 class="sec-title reveal">こんなご依頼、<br>お受けしています</h2>
+  <p class="sec-lead reveal">退去後の原状回復から、入居前の仕上げ清掃まで幅広く対応しています。</p>
+
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <img
+        class="service-img"
+        src="https://images.unsplash.com/photo-1527515637462-cff94edd00de?w=600&auto=format&fit=crop"
+        alt="退去清掃"
+        loading="lazy"
+      >
+      <div class="service-body">
+        <p class="service-tag">CLEANING 01</p>
+        <p class="service-name">退去後の原状回復清掃</p>
+        <p class="service-desc">退去後の汚れやにおいをしっかり落とします。次の入居者を気持ちよく迎えられる状態に仕上げます。</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <img
+        class="service-img"
+        src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&auto=format&fit=crop"
+        alt="入居前清掃"
+        loading="lazy"
+      >
+      <div class="service-body">
+        <p class="service-tag">CLEANING 02</p>
+        <p class="service-name">入居前の仕上げ清掃</p>
+        <p class="service-desc">新しい入居者を迎える前の最終仕上げ。水回りや床の細かいところまで丁寧に清掃します。</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <img
+        class="service-img"
+        src="https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&auto=format&fit=crop"
+        alt="テナント清掃"
+        loading="lazy"
+      >
+      <div class="service-body">
+        <p class="service-tag">CLEANING 03</p>
+        <p class="service-name">テナント・店舗の清掃</p>
+        <p class="service-desc">閉店後・移転後のテナントもお任せください。飲食店の油汚れや、オフィスの細かい清掃にも対応しています。</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <img
+        class="service-img"
+        src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=600&auto=format&fit=crop"
+        alt="定期清掃"
+        loading="lazy"
+      >
+      <div class="service-body">
+        <p class="service-tag">CLEANING 04</p>
+        <p class="service-name">定期清掃・共用部の管理</p>
+        <p class="service-desc">マンション共用部の定期清掃もご依頼いただけます。月次・週次など、ご都合に合わせてご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <p class="sec-label text-center reveal">選ばれる理由</p>
+  <h2 class="sec-title text-center reveal">◯◯清掃が<br>長く選ばれてきたわけ</h2>
+  <p class="sec-lead text-center reveal">仕事の丁寧さと、連絡のしやすさ。それが私たちの強みです。</p>
+
+  <div class="why-list">
+    <div class="why-item reveal">
+      <div class="why-num">01</div>
+      <div>
+        <p class="why-title">連絡がとりやすく、動きが早い</p>
+        <p class="why-desc">「急に退去が出た」「明日対応できる？」そんなご相談にも、できる限り柔軟に対応しています。大手にはできない、フットワークの軽さが私たちの強みです。</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">02</div>
+      <div>
+        <p class="why-title">現場を知るスタッフが対応</p>
+        <p class="why-desc">清掃歴◯◯年以上のスタッフが直接対応します。物件の状態や次の使い方に合わせて、適切な清掃プランをご提案します。</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">03</div>
+      <div>
+        <p class="why-title">個人オーナー様も気軽に相談できる</p>
+        <p class="why-desc">「1室だけだから頼みにくい…」そんなことはありません。物件の数に関わらず、誠実に対応します。初めてのご依頼もご安心ください。</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-num">04</div>
+      <div>
+        <p class="why-title">見積もりが明確、追加費用なし</p>
+        <p class="why-desc">事前にしっかり確認してから見積もりをお出しします。後から「追加で○万円」といったことがないよう、透明性を大切にしています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <p class="sec-label text-center reveal">お客様の声</p>
+  <h2 class="sec-title text-center reveal">実際にご利用いただいた<br>お客様から</h2>
+
+  <div class="voice-grid">
+    <div class="voice-card reveal">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">退去後の清掃をお願いしましたが、水回りの仕上がりがとても丁寧でした。次の入居者さんにも気持ちよく使ってもらえそうです。</p>
+      <div class="voice-who">
+        <strong>◯◯ 様</strong>
+        個人オーナー / 1Kマンション
+      </div>
+    </div>
+    <div class="voice-card reveal">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">急な依頼にも関わらず、翌日対応してもらえました。連絡も早くて安心でした。管理している物件が複数あるので、これからも定期的にお願いしたいです。</p>
+      <div class="voice-who">
+        <strong>◯◯管理 様</strong>
+        不動産管理会社 / 複数物件
+      </div>
+    </div>
+    <div class="voice-card reveal">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">飲食店を閉めるにあたり、厨房の油汚れが心配でしたが、見違えるほどきれいになりました。原状回復で困っていたので本当に助かりました。</p>
+      <div class="voice-who">
+        <strong>◯◯ 様</strong>
+        飲食店オーナー / テナント退去
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow">
+  <p class="sec-label text-center reveal">ご依頼の流れ</p>
+  <h2 class="sec-title text-center reveal">初めてでも安心、<br>4ステップで完結します</h2>
+
+  <div class="flow-steps">
+    <div class="flow-step reveal">
+      <div class="flow-circle">01</div>
+      <p class="flow-title">お問い合わせ</p>
+      <p class="flow-desc">電話・メール・LINEでお気軽にどうぞ。物件の状況をざっくり教えてください。</p>
+    </div>
+    <div class="flow-step reveal">
+      <div class="flow-circle">02</div>
+      <p class="flow-title">現地確認・お見積もり</p>
+      <p class="flow-desc">実際に現地を見てから、明確な金額をお出しします。もちろん無料です。</p>
+    </div>
+    <div class="flow-step reveal">
+      <div class="flow-circle">03</div>
+      <p class="flow-title">清掃作業</p>
+      <p class="flow-desc">スタッフが丁寧に対応します。作業中のご質問もお気軽に。</p>
+    </div>
+    <div class="flow-step reveal">
+      <div class="flow-circle">04</div>
+      <p class="flow-title">完了・お引き渡し</p>
+      <p class="flow-desc">仕上がりをご確認いただいてから完了です。気になる点があればその場でお申し付けください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="sec-label reveal">会社概要</p>
+  <h2 class="sec-title reveal">◯◯清掃について</h2>
+
+  <div class="about-wrap">
+    <div class="about-img reveal">
+      <img
+        src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&auto=format&fit=crop"
+        alt="会社・スタッフの雰囲気"
+        loading="lazy"
+      >
+    </div>
+    <table class="about-table reveal">
+      <tr><td>会社名</td><td>◯◯清掃株式会社</td></tr>
+      <tr><td>所在地</td><td>◯◯県◯◯市◯◯</td></tr>
+      <tr><td>代表者</td><td>◯◯ ◯◯</td></tr>
+      <tr><td>設立</td><td>◯◯年◯月</td></tr>
+      <tr><td>事業内容</td><td>賃貸物件・テナントの原状回復清掃、入居前清掃、定期清掃、ハウスクリーニング</td></tr>
+      <tr><td>対応エリア</td><td>◯◯県◯◯市・◯◯市・◯◯市（近隣エリアもご相談ください）</td></tr>
+      <tr><td>営業時間</td><td>◯:◯◯〜◯◯:◯◯（土日祝も対応可）</td></tr>
+      <tr><td>電話</td><td>◯◯◯-◯◯◯◯-◯◯◯◯</td></tr>
+      <tr><td>メール</td><td>◯◯◯@◯◯◯.com</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-box reveal">
+    <p class="sec-label">お問い合わせ</p>
+    <h2 class="sec-title">まずは気軽に、<br>ご相談ください。</h2>
+    <p class="cta-sub">
+      見積もりだけのご相談も大歓迎です。<br>
+      「こんな依頼できる？」という軽いご質問でもお気軽にどうぞ。
+    </p>
+    <a href="mailto:◯◯◯@◯◯◯.com" class="cta-btn">
+      📩 無料でお問い合わせする
+    </a>
+    <p class="cta-note">お電話の場合 ◯◯◯-◯◯◯◯-◯◯◯◯（◯:◯◯〜◯◯:◯◯）</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">◯◯清掃</p>
+  <p class="footer-copy">© 2025 ◯◯清掃株式会社. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

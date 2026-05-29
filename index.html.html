@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello-Worlds | 駒井良平 LP制作</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================
+   DESIGN TOKENS
+=========================== */
+:root {
+  --bg:       #f9f7f4;
+  --white:    #ffffff;
+  --ink:      #1a1a1a;
+  --ink-mid:  #3d3d3d;
+  --ink-sub:  #6b6b6b;
+  --accent:   #c8412a;
+  --accent-2: #e8a020;
+  --border:   #e2ddd8;
+  --serif:    'Shippori Mincho', serif;
+  --sans:     'Noto Sans JP', sans-serif;
+}
+
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ===========================
+   UTILITY
+=========================== */
+.container { max-width: 1320px; margin: 0 auto; padding: 0 2rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.65rem; letter-spacing: 0.4em;
+  color: var(--accent); font-family: var(--sans);
+  font-weight: 500; text-transform: uppercase;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600; line-height: 1.25;
+  color: var(--ink);
+}
+
+/* ===========================
+   NAV
+=========================== */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  background: rgba(249,247,244,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--ink); letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-menu { display: flex; gap: 2.5rem; list-style: none; }
+.nav-menu a {
+  font-size: 0.8rem; color: var(--ink-mid); font-weight: 500;
+  letter-spacing: 0.05em; transition: color 0.2s;
+}
+.nav-menu a:hover { color: var(--accent); }
+.nav-cta {
+  background: var(--accent); color: #fff;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.88; }
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  padding-top: 64px;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 5rem 2rem 5rem 4rem;
+  background: var(--white);
+}
+.hero-eyebrow {
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s ease both;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--ink);
+  animation: fadeUp 0.7s ease 0.1s both;
+}
+.hero-title .red { color: var(--accent); }
+.hero-lead {
+  margin-top: 1.8rem;
+  font-size: 1rem; line-height: 1.75;
+  color: var(--ink-mid); max-width: 580px;
+  animation: fadeUp 0.7s ease 0.2s both;
+}
+.hero-actions {
+  display: flex; gap: 1rem; margin-top: 2.5rem;
+  animation: fadeUp 0.7s ease 0.3s both;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  padding: 0.9rem 2.2rem;
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em;
+  transition: opacity 0.2s; display: inline-block;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-secondary {
+  border: 2px solid var(--ink);
+  color: var(--ink); padding: 0.9rem 2.2rem;
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em;
+  transition: all 0.2s; display: inline-block;
+}
+.btn-secondary:hover { background: var(--ink); color: #fff; }
+.hero-trust {
+  display: flex; gap: 2.5rem; margin-top: 3rem;
+  padding-top: 2rem; border-top: 1px solid var(--border);
+  animation: fadeUp 0.7s ease 0.4s both;
+}
+.trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.trust-num {
+  font-family: var(--serif);
+  font-size: 2.2rem; font-weight: 700; color: var(--ink);
+  line-height: 1;
+}
+.trust-num span { font-size: 1rem; color: var(--accent); font-weight: 700; }
+.trust-label { font-size: 0.7rem; color: var(--ink-sub); letter-spacing: 0.1em; }
+
+/* HERO RIGHT - 分割パネル */
+.hero-right {
+  background: var(--ink);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; top: -2rem; right: -1rem;
+  font-family: var(--serif);
+  font-size: 16rem; font-weight: 700;
+  color: rgba(255,255,255,0.04); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.hero-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 2rem; margin-bottom: 1rem;
+  position: relative; z-index: 1;
+  animation: fadeUp 0.8s ease 0.5s both;
+}
+.hero-card-label {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  color: var(--accent-2); margin-bottom: 0.8rem; font-weight: 500;
+}
+.hero-card-text {
+  font-family: var(--serif);
+  font-size: 1.3rem; color: #fff; line-height: 1.5;
+}
+.hero-card-text em { color: var(--accent-2); font-style: normal; }
+.hero-card-sub {
+  margin-top: 0.8rem; font-size: 0.8rem;
+  color: rgba(255,255,255,0.55); line-height: 1.7;
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 2rem; right: 3rem;
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.6rem; letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.35);
+  writing-mode: vertical-rl;
+}
+.hero-scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+
+/* ===========================
+   PROBLEM SECTION
+=========================== */
+.problem-section {
+  background: var(--accent);
+  padding: 5rem 2rem;
+}
+.problem-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: 4rem; align-items: center;
+}
+.problem-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 700; color: #fff; line-height: 1.4;
+  white-space: nowrap;
+}
+.problem-title span { border-bottom: 3px solid rgba(255,255,255,0.4); }
+.problem-list { display: flex; flex-direction: column; gap: 1rem; }
+.problem-item {
+  background: rgba(255,255,255,0.12);
+  padding: 1rem 1.5rem;
+  color: #fff; font-size: 0.9rem; line-height: 1.7;
+  border-left: 3px solid rgba(255,255,255,0.5);
+  font-weight: 400;
+}
+.problem-item strong { font-weight: 700; }
+
+/* ===========================
+   ABOUT SECTION
+=========================== */
+.about-section { padding: 8rem 2rem; background: var(--white); }
+.about-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-photo-box {
+  aspect-ratio: 3/4; background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.about-photo-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: var(--ink); color: #fff;
+  padding: 1.2rem 1.5rem;
+}
+.about-photo-label .name {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
+}
+.about-photo-label .title-en {
+  font-size: 0.65rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.5);
+  margin-top: 0.2rem;
+}
+.about-icon { font-size: 5rem; opacity: 0.2; }
+.about-content .tag { margin-bottom: 1rem; }
+.about-content h2 { margin-bottom: 2rem; }
+.about-content p {
+  font-size: 0.95rem; color: var(--ink-mid);
+  line-height: 1.95; margin-bottom: 1.2rem;
+}
+.about-content p strong { color: var(--ink); font-weight: 700; }
+.about-career {
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+.career-item {
+  display: flex; gap: 1.5rem; align-items: baseline;
+}
+.career-year {
+  font-size: 0.7rem; color: var(--accent); font-weight: 700;
+  letter-spacing: 0.1em; min-width: 2.5rem;
+}
+.career-text { font-size: 0.85rem; color: var(--ink-mid); }
+
+/* ===========================
+   STRENGTH SECTION
+=========================== */
+.strength-section { padding: 8rem 2rem; background: var(--bg); }
+.strength-header { max-width: 1320px; margin: 0 auto 4rem; }
+.strength-header .tag { margin-bottom: 0.8rem; }
+.strength-grid {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.strength-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.strength-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.strength-num {
+  font-family: var(--serif);
+  font-size: 3rem; font-weight: 700;
+  color: var(--accent); opacity: 0.25; line-height: 1;
+  margin-bottom: 1rem;
+}
+.strength-card h3 {
+  font-family: var(--serif);
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.8rem; line-height: 1.4;
+}
+.strength-card p { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.85; }
+
+/* ===========================
+   WORKS SECTION
+=========================== */
+.works-section { padding: 8rem 2rem; background: var(--white); }
+.works-header {
+  max-width: 1320px; margin: 0 auto 4rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.works-header .tag { margin-bottom: 0.8rem; }
+.works-more {
+  font-size: 0.8rem; color: var(--accent);
+  font-weight: 700; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 0.1rem;
+}
+.works-grid {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+}
+.work-card {
+  display: block;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: var(--white);
+}
+.work-card:hover {
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
+.work-thumb {
+  aspect-ratio: 16/10;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; font-size: 3.5rem;
+}
+.work-thumb.cafe { background: linear-gradient(135deg, #1a1410 0%, #2d2018 100%); }
+.work-thumb.washoku { background: linear-gradient(135deg, #f5f0e8 0%, #e8ddd0 100%); }
+.work-thumb.yakiniku { background: linear-gradient(135deg, #0e0a07 0%, #1e1208 100%); }
+.work-thumb-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: 0.6rem; letter-spacing: 0.25em; font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  background: var(--accent); color: #fff;
+}
+.work-body { padding: 1.5rem 1.8rem 2rem; }
+.work-cat { font-size: 0.65rem; color: var(--accent); letter-spacing: 0.25em; font-weight: 700; margin-bottom: 0.5rem; }
+.work-body h3 {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.6rem;
+}
+.work-body p { font-size: 0.8rem; color: var(--ink-mid); line-height: 1.75; }
+.work-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1rem; }
+.work-tag {
+  font-size: 0.65rem; padding: 0.2rem 0.7rem;
+  border: 1px solid var(--border); color: var(--ink-sub);
+}
+
+/* ===========================
+   SERVICE SECTION
+=========================== */
+.service-section { padding: 8rem 2rem; background: var(--bg); }
+.service-header { max-width: 1320px; margin: 0 auto 4rem; }
+.service-header .tag { margin-bottom: 0.8rem; }
+.service-grid {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.service-card {
+  background: var(--white); border: 1px solid var(--border);
+  padding: 2.5rem 2rem; position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.service-card.featured {
+  border-color: var(--accent); background: var(--accent);
+}
+.service-card.featured * { color: #fff !important; }
+.service-card.featured .service-price { color: #fff !important; }
+.service-badge {
+  position: absolute; top: -0.7rem; left: 1.5rem;
+  background: var(--accent-2); color: var(--ink);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+  padding: 0.25rem 0.8rem;
+}
+.service-num {
+  font-family: var(--serif); font-size: 2.5rem; font-weight: 700;
+  color: var(--border); line-height: 1; margin-bottom: 1.2rem;
+}
+.service-card h3 {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.8rem;
+}
+.service-card p { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.85; margin-bottom: 1.5rem; }
+.service-price { font-size: 1.3rem; font-weight: 700; color: var(--ink); font-family: var(--serif); }
+.service-price small { font-size: 0.7rem; font-weight: 400; color: var(--ink-sub); margin-left: 0.3rem; font-family: var(--sans); }
+.service-items { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.service-items li {
+  font-size: 0.8rem; color: var(--ink-mid); padding-left: 1rem; position: relative;
+}
+.service-items li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.service-card.featured .service-items li::before { color: rgba(255,255,255,0.8); }
+
+/* ===========================
+   PROCESS SECTION
+=========================== */
+.process-section { padding: 8rem 2rem; background: var(--ink); }
+.process-header { max-width: 1320px; margin: 0 auto 4rem; }
+.process-header .tag { color: var(--accent-2); margin-bottom: 0.8rem; }
+.process-header h2 { color: #fff; }
+.process-steps {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute; top: 2rem; left: 10%; right: 10%;
+  height: 1px; background: rgba(255,255,255,0.15);
+}
+.process-step {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 1rem;
+  position: relative;
+}
+.step-num {
+  width: 4rem; height: 4rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
+  color: var(--accent-2); background: var(--ink);
+  position: relative; z-index: 1;
+  margin-bottom: 1.2rem;
+}
+.step-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+.step-desc { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+/* ===========================
+   VOICE SECTION (お客様の声想定)
+=========================== */
+.voice-section { padding: 8rem 2rem; background: var(--bg); }
+.voice-header { max-width: 1320px; margin: 0 auto 4rem; }
+.voice-header .tag { margin-bottom: 0.8rem; }
+.voice-grid {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.voice-card {
+  background: var(--white); border: 1px solid var(--border);
+  padding: 2rem;
+}
+.voice-stars { color: var(--accent-2); font-size: 0.9rem; margin-bottom: 1rem; }
+.voice-text { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.85; margin-bottom: 1.5rem; }
+.voice-author {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding-top: 1.2rem; border-top: 1px solid var(--border);
+}
+.voice-avatar {
+  width: 2.5rem; height: 2.5rem; background: var(--bg);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.voice-name { font-size: 0.8rem; font-weight: 700; color: var(--ink); }
+.voice-store { font-size: 0.7rem; color: var(--ink-sub); }
+
+/* ===========================
+   CTA SECTION
+=========================== */
+.cta-section {
+  padding: 8rem 2rem;
+  background: var(--white);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(200,65,42,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-section .tag { margin-bottom: 1.5rem; }
+.cta-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700; color: var(--ink);
+  line-height: 1.2; margin-bottom: 1.5rem;
+}
+.cta-section h2 .red { color: var(--accent); }
+.cta-section .lead {
+  font-size: 1rem; color: var(--ink-mid);
+  line-height: 1.9; margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.cta-actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+.cta-note { font-size: 0.75rem; color: var(--ink-sub); }
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+  background: var(--ink); padding: 4rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+}
+.footer-brand .logo {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
+  color: #fff; margin-bottom: 0.8rem;
+}
+.footer-brand .logo span { color: var(--accent); }
+.footer-brand p { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.8; }
+.footer-info { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-row {
+  display: flex; gap: 1.5rem;
+  font-size: 0.78rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.6rem;
+}
+.footer-label { color: rgba(255,255,255,0.35); min-width: 4rem; font-size: 0.7rem; letter-spacing: 0.1em; }
+.footer-val { color: rgba(255,255,255,0.75); }
+.footer-copy {
+  background: rgba(0,0,0,0.3); padding: 1.2rem 4rem;
+  text-align: center; font-size: 0.7rem; color: rgba(255,255,255,0.3);
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollAnim {
+  0%   { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50%  { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* scroll-triggered fade */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-menu { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 4rem 2rem; }
+  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { display: none; }
+  .strength-grid, .works-grid, .service-grid, .voice-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .process-steps::before { display: none; }
+  .works-section, .service-section, .about-section,
+  .strength-section, .process-section, .voice-section,
+  .cta-section, .problem-section { padding: 5rem 1.5rem; }
+  footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  .footer-copy { padding: 1rem 1.5rem; }
+  .cta-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav>
+  <div class="nav-logo">Hello<span>-</span>Worlds</div>
+  <ul class="nav-menu">
+    <li><a href="#about">私について</a></li>
+    <li><a href="#works">制作実績</a></li>
+    <li><a href="#service">料金</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">無料相談する</a>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow tag">飲食業界16年 × 全業種対応 LP制作</p>
+    <h1 class="hero-title">
+      知られていない<br><span class="red">名店を無くす。</span>
+    </h1>
+    <p class="hero-lead">
+      「もっと予約を増やしたい」<br>
+      飲食に携わる方なら、一度は感じたことがあるのではないでしょうか。<br>
+      実は、予約が増えないのは集客力だけの問題ではありません。<br>
+      見てくださった方が「行きたい」と感じられる仕組みがあるかどうか、それが大きな差を生んでいます。<br>
+      Hello-Worldsは、その仕組みを<strong>飲食はもちろん、あらゆる業種</strong>向けにLPというかたちでご提供いたします。
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">無料相談する →</a>
+      <a href="#works" class="btn-secondary">制作実績を見る</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <div class="trust-num" data-count="16">0<span>年</span></div>
+        <div class="trust-label">飲食業界経験</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num" data-count="3">0<span>件</span></div>
+        <div class="trust-label">制作実績</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">全<span>業種</span></div>
+        <div class="trust-label">対応可能</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">食</div>
+    <div class="hero-card">
+      <p class="hero-card-label">— こんなお悩みはございませんか？</p>
+      <p class="hero-card-text">
+        「美味しいのに、<em>予約が入らない</em>」「SNSを頑張っても<em>来店につながらない</em>」
+      </p>
+      <p class="hero-card-sub">
+        それは情報発信の問題ではなく、「伝え方」の問題です。
+        飲食を知り尽くしたクリエイターが、根本から解決いたします。
+      </p>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="hero-scroll-line"></div>
+      SCROLL
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROBLEM ==================== -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <h2 class="problem-title">
+      その<span>「伝わらない」</span>には<br>理由があります
+    </h2>
+    <div class="problem-list">
+      <div class="problem-item reveal"><strong>業界を知らない制作者が作ったLP</strong>は、料理の魅力・雰囲気・ターゲットがズレていることが多くございます</div>
+      <div class="problem-item reveal reveal-d1"><strong>来店動機をデザインできていない</strong>ため、ご覧になった方が「行きたい」と感じられません</div>
+      <div class="problem-item reveal reveal-d2"><strong>予約・注文への導線が弱い</strong>ため、せっかくの集客機会がムダになってしまいます</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-photo-box">
+        <div class="about-icon">👨‍🍳</div>
+        <div class="about-photo-label">
+          <div class="name">駒井 良平</div>
+          <div class="title-en">Ryohei Komai / Hello-Worlds</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="tag">— ABOUT</p>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">飲食の現場を<br>知るクリエイター</h2>
+      <p>
+        飲食の現場で<strong>16年間</strong>、店長・マネージャー・本部として働いてまいりました。
+        繁忙期の集客、新メニューの告知、ブランドの立て直し——現場で悩み続けてきたことが、今のLP制作の原点です。
+      </p>
+      <p>
+        「業界を知らない方には、うちのお店の良さは伝えられない」そう感じていらっしゃる飲食店オーナー様のお力になりたい。
+        その思いから、<strong>Hello-Worlds</strong>を立ち上げました。
+      </p>
+      <div class="about-career">
+        <div class="career-item reveal">
+          <span class="career-year">初期</span>
+          <span class="career-text">店長として集客・売上管理・スタッフ育成に従事</span>
+        </div>
+        <div class="career-item reveal reveal-d1">
+          <span class="career-year">中期</span>
+          <span class="career-text">エリアマネージャー・SVとして複数店舗統括</span>
+        </div>
+        <div class="career-item reveal reveal-d2">
+          <span class="career-year">〜現在</span>
+          <span class="career-text">飲食業 本部マネジメント（商品企画・店舗開発）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STRENGTH ==================== -->
+<section class="strength-section">
+  <div class="strength-header">
+    <p class="tag">— WHY HELLO-WORLDS</p>
+    <h2 class="section-title" style="margin-top:0.8rem;">選ばれる3つの理由</h2>
+  </div>
+  <div class="strength-grid">
+    <div class="strength-card reveal">
+      <div class="strength-num">01</div>
+      <h3>飲食業16年の<br>リアルな現場経験</h3>
+      <p>繁忙期の集客・ブランド立て直し・価格設計まで経験済みです。「LP映え」より「来店・予約につながる設計」を最優先にご提案いたします。</p>
+    </div>
+    <div class="strength-card reveal reveal-d1">
+      <div class="strength-num">02</div>
+      <h3>業界目線の<br>ヒアリングと提案</h3>
+      <p>飲食経営者様のお悩みを深く理解しているため、的外れなご提案がございません。ターゲット・客単価・競合まで一緒に整理いたします。</p>
+    </div>
+    <div class="strength-card reveal reveal-d2">
+      <div class="strength-num">03</div>
+      <h3>飲食に限らず<br>全業種に対応</h3>
+      <p>飲食業界で培った「伝え方の設計力」はあらゆる業種に応用できます。美容・士業・EC・フィットネスなど、業種を問わずお気軽にご相談ください。</p>
+    </div>
+  </div>
+
+  <!-- 対応業種バナー -->
+  <div style="max-width:1100px; margin:3rem auto 0; padding:2rem; background:var(--white); border:1px solid var(--border);">
+    <p style="font-size:0.7rem; letter-spacing:0.3em; color:var(--accent); font-weight:700; margin-bottom:1.2rem;">— 対応業種（一例）</p>
+    <div style="display:flex; flex-wrap:wrap; gap:0.7rem;">
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">🍽️ 飲食店・カフェ</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">💆 美容・エステ・サロン</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">💪 フィットネス・ジム</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">⚖️ 士業・コンサル</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">🏠 不動産・リフォーム</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">🛍️ EC・通販</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">📚 スクール・教育</span>
+      <span style="background:var(--bg); border:1px solid var(--border); padding:0.4rem 1rem; font-size:0.8rem; color:var(--ink-mid);">✨ その他すべて対応可</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WORKS ==================== -->
+<section class="works-section" id="works">
+  <div class="works-header">
+    <div>
+      <p class="tag">— WORKS</p>
+      <h2 class="section-title" style="margin-top:0.8rem;">制作実績</h2>
+    </div>
+  </div>
+  <div class="works-grid">
+    <a href="cafe-lp.html" target="_blank" class="work-card reveal">
+      <div class="work-thumb cafe">
+        <span>☕</span>
+        <span class="work-thumb-badge">CAFE</span>
+      </div>
+      <div class="work-body">
+        <p class="work-cat">HIGH-END CAFE</p>
+        <h3>Salon de Cacao</h3>
+        <p>高級カフェのブランドLP。ダーク×ゴールドの世界観で上質感・特別感を演出いたしました。</p>
+        <div class="work-tags">
+          <span class="work-tag">LP制作</span>
+          <span class="work-tag">ブランディング</span>
+          <span class="work-tag">予約導線</span>
+        </div>
+      </div>
+    </a>
+    <a href="washoku-lp.html" target="_blank" class="work-card reveal reveal-d1">
+      <div class="work-thumb washoku">
+        <span>🍱</span>
+        <span class="work-thumb-badge">JAPANESE</span>
+      </div>
+      <div class="work-body">
+        <p class="work-cat">JAPANESE DINING</p>
+        <h3>旬炉 SHUNRO</h3>
+        <p>和食ダイニングのLP。ライト×和モダンで品格と四季の変化を表現。コース訴求に特化いたしました。</p>
+        <div class="work-tags">
+          <span class="work-tag">LP制作</span>
+          <span class="work-tag">和モダン</span>
+          <span class="work-tag">コース訴求</span>
+        </div>
+      </div>
+    </a>
+    <a href="yakiniku-lp.html" target="_blank" class="work-card reveal reveal-d2">
+      <div class="work-thumb yakiniku">
+        <span>🔥</span>
+        <span class="work-thumb-badge">YAKINIKU</span>
+      </div>
+      <div class="work-body">
+        <p class="work-cat">PREMIUM YAKINIKU</p>
+        <h3>焔 HOMURA</h3>
+        <p>プレミアム焼肉のLP。ダーク×赤炎の演出で、一頭買いの希少価値と高単価を訴求いたしました。</p>
+        <div class="work-tags">
+          <span class="work-tag">LP制作</span>
+          <span class="work-tag">高単価訴求</span>
+          <span class="work-tag">ブランド演出</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== SERVICE ==================== -->
+<section class="service-section" id="service">
+  <div class="service-header">
+    <p class="tag">— SERVICE & PRICE</p>
+    <h2 class="section-title" style="margin-top:0.8rem;">料金プラン</h2>
+    <p style="margin-top:1rem; font-size:0.75rem; color:var(--ink-sub);">※ 表示金額はあくまでも目安です。内容・ボリュームにより変動いたします。まずはお気軽にご相談ください。<br>🛡️ 仕上がりにご満足いただけない場合、料金は一切いただきません。</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <h3>ライトプラン</h3>
+      <ul class="service-items">
+        <li>ヒアリング・方向性設計</li>
+        <li>デザイン〜コーディング</li>
+        <li>スマートフォン対応</li>
+        <li>修正2回まで</li>
+      </ul>
+      <p class="service-price">¥30,000<small>〜 税込</small></p>
+    </div>
+    <div class="service-card featured reveal reveal-d1">
+      <div class="service-badge">人気No.1</div>
+      <div class="service-num">02</div>
+      <h3>スタンダードプラン</h3>
+      <ul class="service-items">
+        <li>競合調査・戦略設計</li>
+        <li>コピーライティング</li>
+        <li>デザイン〜コーディング</li>
+        <li>スマートフォン対応</li>
+        <li>修正5回まで・納品後サポート</li>
+      </ul>
+      <p class="service-price">¥80,000<small>〜 税込</small></p>
+    </div>
+    <div class="service-card reveal reveal-d2">
+      <div class="service-num">03</div>
+      <h3>プレミアムプラン</h3>
+      <ul class="service-items">
+        <li>戦略設計〜CVR改善まで</li>
+        <li>アニメーション・高演出</li>
+        <li>A/Bテスト・分析サポート</li>
+        <li>月次レポート付き運用</li>
+        <li>修正無制限</li>
+      </ul>
+      <p class="service-price">¥150,000<small>〜 税込</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="process-section">
+  <div class="process-header">
+    <p class="tag">— HOW IT WORKS</p>
+    <h2 class="section-title" style="color:#fff; margin-top:0.8rem;">制作の流れ</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <p class="step-title">無料相談</p>
+      <p class="step-desc">ご要望・課題・ターゲットをヒアリングし、方向性を一緒に決めてまいります。</p>
+    </div>
+    <div class="process-step reveal reveal-d1">
+      <div class="step-num">02</div>
+      <p class="step-title">ご提案・お見積り</p>
+      <p class="step-desc">構成案・デザインイメージ・費用感をご提示いたします。</p>
+    </div>
+    <div class="process-step reveal reveal-d2">
+      <div class="step-num">03</div>
+      <p class="step-title">制作開始</p>
+      <p class="step-desc">デザイン〜コーディングまで一貫対応。進捗を随時ご共有いたします。</p>
+    </div>
+    <div class="process-step reveal reveal-d2">
+      <div class="step-num">04</div>
+      <p class="step-title">修正・調整</p>
+      <p class="step-desc">ご確認いただき、ご要望に合わせて丁寧に修正いたします。</p>
+    </div>
+    <div class="process-step reveal reveal-d3">
+      <div class="step-num">05</div>
+      <p class="step-title">納品・公開</p>
+      <p class="step-desc">公開後のサポートも対応可能。継続的な改善もお任せください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VOICE ==================== -->
+<section class="voice-section">
+  <div class="voice-header">
+    <p class="tag">— VOICE</p>
+    <h2 class="section-title" style="margin-top:0.8rem;">お客様の声（想定）</h2>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-card reveal">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">飲食業界を熟知したご提案で、「なぜ予約が入らないのか」の根本から解決していただきました。公開後、予約数が大幅に増加しております。</p>
+      <div class="voice-author">
+        <div class="voice-avatar">🍣</div>
+        <div>
+          <div class="voice-name">N様</div>
+          <div class="voice-store">和食ダイニング / 東京都</div>
+        </div>
+      </div>
+    </div>
+    <div class="voice-card reveal reveal-d1">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">業界経験をお持ちなので「うちのお店の伝えたいこと」がすぐに伝わり、ヒアリングがとてもスムーズでした。デザインも期待以上の仕上がりです。</p>
+      <div class="voice-author">
+        <div class="voice-avatar">☕</div>
+        <div>
+          <div class="voice-name">K様</div>
+          <div class="voice-store">カフェ / 東京都</div>
+        </div>
+      </div>
+    </div>
+    <div class="voice-card reveal reveal-d2">
+      <div class="voice-stars">★★★★★</div>
+      <p class="voice-text">他の制作者様と違い「集客の視点」でLP設計をしていただける点が大きな違いでした。売上向上への本気度がしっかりと伝わってまいります。</p>
+      <div class="voice-author">
+        <div class="voice-avatar">🔥</div>
+        <div>
+          <div class="voice-name">T様</div>
+          <div class="voice-store">焼肉店 / 東京都</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta-section" id="contact">
+  <p class="tag">— CONTACT</p>
+  <h2>まず、<span class="red">無料相談</span>ください。</h2>
+  <p class="lead">「どのようなLPが合うかわからない」「予算感が不明」——そのような段階でも構いません。飲食業界での現場経験をもとに、貴店に合った方向性をご提案いたします。</p>
+  <div class="cta-actions">
+    <a href="mailto:hello@hello-worlds.jp" class="btn-primary" style="font-size:0.9rem; padding:1.1rem 3rem;">メールでご相談する（無料）</a>
+  </div>
+  <p class="cta-note">返信は原則24時間以内 ／ しつこい営業は一切いたしません ／ 🛡️ 満足保証付き・仕上がりにご満足いただけない場合は料金不要</p>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Hello<span>-</span>Worlds</div>
+    <p>飲食業界16年の経験を活かした、来店・予約に直結するLP制作。駒井良平が一貫して対応いたします。</p>
+  </div>
+  <div class="footer-info">
+    <div class="footer-row">
+      <span class="footer-label">NAME</span>
+      <span class="footer-val">駒井 良平（Ryohei Komai）</span>
+    </div>
+    <div class="footer-row">
+      <span class="footer-label">MAIL</span>
+      <span class="footer-val">hello@hello-worlds.jp</span>
+    </div>
+    <div class="footer-row">
+      <span class="footer-label">DOMAIN</span>
+      <span class="footer-val">hello-worlds.jp</span>
+    </div>
+    <div class="footer-row">
+      <span class="footer-label">AREA</span>
+      <span class="footer-val">東京都（全国対応可・リモート）</span>
+    </div>
+  </div>
+</footer>
+<div class="footer-copy">© 2024 Hello-Worlds / 駒井良平. All Rights Reserved.</div>
+
+<!-- ==================== JS ==================== -->
+<script>
+// カウントアップ
+const countEls = document.querySelectorAll('[data-count]');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.count);
+    const suffix = el.querySelector('span')?.outerHTML || '';
+    const duration = 1200;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.floor(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    countObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+countEls.forEach(el => countObserver.observe(el));
+
+// スクロール reveal
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
